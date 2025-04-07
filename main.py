@@ -1,33 +1,35 @@
+# main.py
+
+from policy import PasswordPolicy
 from evaluator import PasswordStrengthEvaluator
-from utils import generate_strong_password
+from generator import generate_strong_password
 
 def main():
-    evaluator = PasswordStrengthEvaluator()
+    policy = PasswordPolicy(min_length=16)
+    evaluator = PasswordStrengthEvaluator(policy)
 
     print("Password Strength Evaluator")
-    print("--------------------------")
+    print("---------------------------")
 
     while True:
-        password = input("\nEnter a password to evaluate (or 'q' to quit): ")
-        if password.lower() == 'q':
+        pwd = input("\nEnter a password (or 'q' to quit): ")
+        if pwd.lower() == 'q':
             break
 
-        result = evaluator.evaluate_strength(password)
+        result = evaluator.evaluate(pwd)
 
-        print("\n=== Evaluation Results ===")
+        print("\n=== Evaluation ===")
         print(f"Strength: {result['strength']}")
         print(f"Entropy: {result['entropy']} bits")
-        print(f"Analysis: {result['message']}")
+        print(f"Message: {result['message']}")
 
         if result['suggestions']:
-            print("\nSuggestions for improvement:")
-            for suggestion in result['suggestions']:
-                print(f"- {suggestion}")
+            print("Suggestions:")
+            for s in result['suggestions']:
+                print(f"- {s}")
 
-        strong_pwd = generate_strong_password(16, evaluator)
-        strong_entropy = evaluator.calculate_entropy(strong_pwd)
-        print(f"\nExample strong password: {strong_pwd} ({strong_entropy:.1f} bits)")
-
+        example = generate_strong_password(16, evaluator)
+        print(f"\n Example strong password: {example}")
 
 if __name__ == "__main__":
     main()
