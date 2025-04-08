@@ -2,7 +2,7 @@
 
 class PasswordPolicy:
     def __init__(self, min_length=16, require_upper=True, require_lower=True,
-                 require_digits=True, require_special=True, disallowed_patterns=None):
+                 require_digits=True, require_special=True):
         self.min_length = min_length
         self.require_upper = require_upper
         self.require_lower = require_lower
