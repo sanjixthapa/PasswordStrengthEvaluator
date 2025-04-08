@@ -36,6 +36,7 @@ class PasswordStrengthEvaluator:
             errors.append("Needs at least one digit.")
         if self.policy.require_special and not any(c in SPECIAL for c in password):
             errors.append("Needs at least one special character.")
+        return errors
         
     def evaluate(self, password):
         if not password:
