@@ -8,4 +8,3 @@ class PasswordPolicy:
         self.require_lower = require_lower
         self.require_digits = require_digits
         self.require_special = require_special
-        self.disallowed_patterns = disallowed_patterns or []
