@@ -36,11 +36,7 @@ class PasswordStrengthEvaluator:
             errors.append("Needs at least one digit.")
         if self.policy.require_special and not any(c in SPECIAL for c in password):
             errors.append("Needs at least one special character.")
-        for pattern in self.policy.disallowed_patterns:
-            if re.search(pattern, password):
-                errors.append("Contains disallowed pattern.")
-        return errors
-
+        
     def evaluate(self, password):
         if not password:
             return {'strength': 'Very Weak', 'entropy': 0, 'message': 'Empty password', 'suggestions': []}
